@@ -43,7 +43,7 @@ This project aims to solve this problem by making flow rate data easier to colle
     <img width="400" src="https://img.youtube.com/vi/L7kpcUOq6Nk/0.jpg">
   </a>
   <br>
-  <span><i>IoT Flow Meter Video</i></span>
+  <span><i>IoT Flow Meter Overview Video</i></span>
 </p>
 
 The IoT flow meter consists of a sensor and electronics, connected to a PVC pipe support structure, that can be deployed to a river to collect flow rate data.
@@ -112,6 +112,11 @@ Reliability: Consistent and accurate measurements that reflect the actual flow r
 The system relies on having a reliable cellular network as well. Currently, if an attempted request to Soracom fails due to a network timeout, that data is lost. Further updates to the tool would include backing up measurements so they could be saved and pushed to the cloud when the connection is reestablished.
 
 Security: The IoT flow meter is designed to be left unattended, which puts its physical security at risk. Currently, there is no way to determine what happens to the system if it goes offline or is missing, but a future version may include a GPS module that includes the system's current coordinates with each data push. This would help track the location of the system at any time.
+
+<p>
+  <figure><img src="img/how_it_works_10.jpg" /><figcaption>Caption goes here and here</figcaption></figure>
+  <figure><img src="img/how_it_works_11.jpg" /><figcaption>caption goes here and here</figcaption></figure>
+</p>
 
 
 
