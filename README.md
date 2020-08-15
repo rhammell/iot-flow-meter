@@ -42,7 +42,7 @@ This project aims to solve this problem by making flow rate data easier to colle
 
 <p align="center">
   <a target="_blank" href="https://www.youtube.com/watch?v=L7kpcUOq6Nk">
-    <img width="500" src="https://img.youtube.com/vi/L7kpcUOq6Nk/0.jpg">
+    <img width="600" src="https://img.youtube.com/vi/L7kpcUOq6Nk/0.jpg">
   </a>
   <br>
   <span><i>IoT Flow Meter Overview Video</i></span>
@@ -53,17 +53,17 @@ The IoT flow meter consists of a sensor and electronics, connected to a PVC pipe
 A flow meter sensor is connected to the structure's vertical pipe at an adjustable height where it is held submerged underwater. The electronics are contained in an upper housing at the top of the structure outside of the water.
 
 <p align="center">
-  <img width="500" src="img/how_it_works_1.jpg">
+  <img width="600" src="img/how_it_works_1.jpg">
   <br>
   <span><i>IoT flow meter structure and components</i></span>
 </p>
 <p align="center">
-  <img width="500" src="img/how_it_works_2.jpg">
+  <img width="600" src="img/how_it_works_2.jpg">
   <br>
   <span><i>Flow meter sensor connected to structure</i></span>
 </p>
 <p align="center">
-  <img width="500" src="img/how_it_works_3.jpg">
+  <img width="600" src="img/how_it_works_3.jpg">
   <br>
   <span><i>IoT flow meter deployed to a local river</i></span>
 </p>
@@ -73,17 +73,17 @@ The system utilizes a YF-S201 liquid flow meter sensor, which contains a magneti
 As more water enters the sensor the wheel spins faster, and this rate of spin (Hz) can be used to calculate how many liters of water flow through the sensor per minute (L/min), called the flow rate.
 
 <p align="center">
-  <img width="500" src="img/how_it_works_4.jpg">
+  <img width="600" src="img/how_it_works_4.jpg">
   <br>
   <span><i>YF-S201 liquid flow meter sensor</i></span>
 </p>
 <p align="center">
-  <img width="500" src="img/how_it_works_5.jpg">
+  <img width="600" src="img/how_it_works_5.jpg">
   <br>
   <span><i>Magnetic pinwheel housed within the sensor</i></span>
 </p>
 <p align="center">
-  <img width="500" src="img/how_it_works_6.jpg">
+  <img width="600" src="img/how_it_works_6.jpg">
   <br>
   <span><i>3D printed bracket and funnel attached to sensor</i></span>
 </p>
@@ -95,12 +95,12 @@ A 3D printed bracket is used to connect the sensor to the PVC pipe structure and
 The electronics of the system include a Raspberry Pi, 3G USB modem with a Soracom Global SIM, and external battery, which are contained in a 3D printed housing. The sensor is connected to the Pi by water-sealed jumper wires that run the length of the vertical pipe into the housing.
 
 <p align="center">
-  <img width="500" src="img/how_it_works_7.jpg">
+  <img width="600" src="img/how_it_works_7.jpg">
   <br>
   <span><i>Raspberry Pi, 3G USB modem with Soracom Global SIM, and external battery</i></span>
 </p>
 <p align="center">
-  <img width="500" src="img/how_it_works_8.jpg">
+  <img width="600" src="img/how_it_works_8.jpg">
   <br>
   <span><i>Electronics in 3D printed housing</i></span>
 </p>
@@ -110,7 +110,7 @@ The Pi runs a Python script where ever minute a flow rate measurement is collect
 The script makes an HTTP POST request to Soracom's Unified Endpoint which forwards the data along to two services: Soracom Harvest and Soracom Funnel.
 
 <p align="center">
-  <img width="500" src="img/how_it_works_9.jpg">
+  <img width="600" src="img/how_it_works_9.jpg">
   <br>
   <span><i>Overview of information flow</i></span>
 </p>
@@ -118,17 +118,17 @@ The script makes an HTTP POST request to Soracom's Unified Endpoint which forwar
 Soracom Harvest allows for easy real-time visualization of the incoming data. The console displays a live graph showing updated data values as they stream in. Users can monitor how the data changes over a selected window of time.
 
 <p align="center">
-  <img width="500" src="img/how_it_works_10.jpg">
+  <img width="600" src="img/how_it_works_10.jpg">
   <br>
   <span><i>Soracom Harvest console</i></span>
 </p>
 <p align="center">
-  <img width="500" src="img/how_it_works_11.jpg">
+  <img width="600" src="img/how_it_works_11.jpg">
   <br>
   <span><i>AWS Cloudwatch console</i></span>
 </p>
 <p align="center">
-  <img width="500" src="img/how_it_works_12.jpg">
+  <img width="600" src="img/how_it_works_12.jpg">
   <br>
   <span><i>Email alarm notification</i></span>
 </p>
@@ -174,25 +174,25 @@ Using the male-to-female jumper wires, make the following connections from the Y
 - Yellow (Output) to Pin 7 (GPIO4)
 
 <p align="center">
-  <img width="500" src="img/build_instructions_1.jpg">
+  <img width="600" src="img/build_instructions_1.jpg">
   <br>
   <span><i>Schematic of circut setup showing pin connections</i></span>
 </p>
 <p align="center">
-  <img width="500" src="img/build_instructions_2.jpg">
+  <img width="600" src="img/build_instructions_2.jpg">
   <br>
   <span><i>Circuit setup</i></span>
 </p>
 
 ## Setp 2: Test Sensor Measurements
 
-A Python script can be ran to take readings from the sensor that is now connected. Open the Raspberry Pi terminal and enter the following commands to create and navigate to a flowmeter directory on the Pi's desktop where the script will be stored:
+A Python script can be ran to take readings from the sensor that is now connected. Open the Raspberry Pi terminal and enter the following commands to create and navigate to a `flowmeter` directory on the Pi's desktop where the script will be stored:
 
     $ cd /home/pi/Desktop
     $ mkdir flowmeter
     $ cd flowmeter
 
-Using Python's IDLE, or another text editor, copy the following Python code and save it as flowmeter.py in the folder that was just created:
+Using Python's IDLE, or another text editor, copy the following Python code and save it as `flowmeter.py` in the folder that was just created:
 
     import json
     import time
@@ -267,13 +267,13 @@ Using Python's IDLE, or another text editor, copy the following Python code and 
     if __name__ == '__main__':
        main()
 
-This script defines a FlowMeter() object class that is used to track pulses received from the sensor as its pinwheel spins and calculate the current flow rate.
+This script defines a `FlowMeter()` object class that is used to track pulses received from the sensor as its pinwheel spins and calculate the current flow rate.
 
-Each new pulse triggers the pulseCallback() method, where the rate of pulses per second (Hz) is divided by a constant to calculate the flow rate in liters per minute (L/min). This conversion is defined in the sensor's datasheet. The getFlowRate() method returns the current flow rate.
+Each new pulse triggers the `pulseCallback()` method, where the rate of pulses per second (Hz) is divided by a constant to calculate the flow rate in liters per minute (L/min). This conversion is defined in the sensor's [datasheet](https://www.adafruit.com/product/828). The `getFlowRate()` method returns the current flow rate.
 
-The main() function is called when the script is launched and defines the GPIO pins used by the sensor, and initiates an instance of the FlowMeter() class.
+The `main()` function is called when the script is launched and defines the GPIO pins used by the sensor, and initiates an instance of the `FlowMeter()` class.
 
-An infinite loop is entered where on each pass a flow rate measurement and its timestamp collected and printed out to the console. The time.sleep(5) statement, which controls the delay between loops, is set to 5 seconds. The loop will run continuously until canceled by the user.
+An infinite loop is entered where on each pass a flow rate measurement and its timestamp collected and printed out to the console. The `time.sleep(5)` statement, which controls the delay between loops, is set to 5 seconds. The loop will run continuously until canceled by the user.
 
 Before deploying the final IoT flow meter to a river, edit this script to adjust this sleep time to the frequency you want to collect river measurements. A value of 60 will take measurements at one minute intervals.
 
