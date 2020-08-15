@@ -39,26 +39,79 @@ This project aims to solve this problem by making flow rate data easier to colle
 # How it Works
 
 <p align="center">
-  [![IoT Flow Meter Overview](https://img.youtube.com/vi/L7kpcUOq6Nk/0.jpg)](https://www.youtube.com/watch?v=L7kpcUOq6Nk)
+  <a target="_blank" href="https://www.youtube.com/watch?v=L7kpcUOq6Nk">
+    <img width="400" src="https://img.youtube.com/vi/L7kpcUOq6Nk/0.jpg">
+  </a>
+  <br>
+  <span><i>IoT Flow Meter Video</i></span>
 </p>
-
-
-
-
-
-<p align="center">
-  <a href="https://www.youtube.com/watch?v=L7kpcUOq6Nk"><img width="600" src="https://img.youtube.com/vi/L7kpcUOq6Nk/0.jpg"></a>
-</p>
-
 
 The IoT flow meter consists of a sensor and electronics, connected to a PVC pipe support structure, that can be deployed to a river to collect flow rate data.
 
 A flow meter sensor is connected to the structure's vertical pipe at an adjustable height where it is held submerged underwater. The electronics are contained in an upper housing at the top of the structure outside of the water.
 
-[![IoT Flow Meter Overview](https://img.youtube.com/vi/L7kpcUOq6Nk/0.jpg)](https://www.youtube.com/watch?v=L7kpcUOq6Nk)
+<p align="center">
+    <img width="400" src="img/how_it_works_1.jpg">
+    <img width="400" src="img/how_it_works_2.jpg">
+    <img width="400" src="img/how_it_works_3.jpg">
+</p>
 
+The system utilizes a YF-S201 liquid flow meter sensor, which contains a magnetic pinwheel that is spun by incoming water.
 
+As more water enters the sensor the wheel spins faster, and this rate of spin (Hz) can be used to calculate how many liters of water flow through the sensor per minute (L/min), called the flow rate.
 
+<p align="center">
+    <img width="400" src="img/how_it_works_4.jpg">
+    <img width="400" src="img/how_it_works_5.jpg">
+    <img width="400" src="img/how_it_works_6.jpg">
+</p>
+
+Note: This flow rate only tells the liters of water passing through the sensor itself, not the entire river. The sensor's flow rate is strongly correlated to the river's actual flow rate, but is not measuring it directly. The IoT flow meter provides only the sensor's flow rate and uses this as an approximation for the entire river.
+
+A 3D printed bracket is used to connect the sensor to the PVC pipe structure and a 3D printed funnel guides river water into the mouth of the sensor.
+
+The electronics of the system include a Raspberry Pi, 3G USB modem with a Soracom Global SIM, and external battery, which are contained in a 3D printed housing. The sensor is connected to the Pi by water-sealed jumper wires that run the length of the vertical pipe into the housing.
+
+<p align="center">
+    <img width="400" src="img/how_it_works_7.jpg">
+    <img width="400" src="img/how_it_works_8.jpg">
+</p>
+
+The Pi runs a Python script where ever minute a flow rate measurement is collected from the sensor and, using the cellular connectivity provided by the modem and SIM card, pushed to the cloud.
+
+The script makes an HTTP POST request to Soracom's Unified Endpoint which forwards the data along to two services: Soracom Harvest and Soracom Funnel.
+
+<p align="center">
+    <img width="600" src="img/how_it_works_9.jpg">
+</p>
+
+Soracom Harvest allows for easy real-time visualization of the incoming data. The console displays a live graph showing updated data values as they stream in. Users can monitor how the data changes over a selected window of time.
+
+<p align="center">
+    <img width="600" src="img/how_it_works_10.jpg">
+    <img width="600" src="img/how_it_works_11.jpg">
+    <img width="600" src="img/how_it_works_12.jpg">
+</p>
+
+Soracom Funnel takes the data and forwards it further on it by sending it to an AWS IoT endpoint, where an AWS IoT rule is then used to push the data to AWS CloudWatch.
+
+A CloudWatch alarm is configured to monitor when the flow rate surpasses a critical value and automatically sends out an email notification to any subscribed users letting them know that the alarm has been triggered. This feature allows users to stay aware of important changes in the river's flow rate without having to monitor it live.
+
+# Architecture and Operational Excellence
+
+The IoT flow meter is meant to be a solution to a problem that traditionally requires more hands-on, expensive equipment to collect data. While this prototype has shown that it can be fielded and provide results, there are further things to consider in moving to a production version.
+
+Cost: The total cost for the system is ~$120, with the largest expenses being the Raspberry Pi ($35) and the 3G Modem ($60). This price could likely brought down with bulk supplies. This total cost is reasonable when considering the man-hours saved by using this IoT device instead of paying surveyors/engineers to collect measurements manually.
+
+Scalability: The system could be scaled up to many more units depending on demand. Building a mass amount of units would become easier by transitioning to an pre-fabricated circuit that contained all necessary electronics, and developing a better pipe structure that was pre-assembled.
+
+If scaled up to 1000's of units running worldwide, Soracom and AWS IoT could still remain the backbone of how data is collected and distributed. Individual accounts and access may need to be set up for each user, and AWS IoT can accomplish this though IAM user groups, which grant permissions to view/edit data to only specific users.
+
+Reliability: Consistent and accurate measurements that reflect the actual flow rate is important to this problem. More testing needs to be done to better understand the different effects that may influence the sensor's readings like depth and placement in the river.
+
+The system relies on having a reliable cellular network as well. Currently, if an attempted request to Soracom fails due to a network timeout, that data is lost. Further updates to the tool would include backing up measurements so they could be saved and pushed to the cloud when the connection is reestablished.
+
+Security: The IoT flow meter is designed to be left unattended, which puts its physical security at risk. Currently, there is no way to determine what happens to the system if it goes offline or is missing, but a future version may include a GPS module that includes the system's current coordinates with each data push. This would help track the location of the system at any time.
 
 
 
