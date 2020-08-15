@@ -5,7 +5,8 @@ This repository contains the code and tutorial for buiding an IoT enabled flow m
 
 <p align="center">
   <img width="600" src="img/overview.jpg">
-  <p style="font-size:12px; color: grey">This is test text</p>
+  <br>
+  <span style="font-size:12px; color: grey">This is test text</span>
 </p>
 
 This project demonstrates how to build an internet connected flow meter that continuously measures a river's flow rate and makes real-time data available to users online.
