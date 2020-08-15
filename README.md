@@ -39,8 +39,14 @@ This project aims to solve this problem by making flow rate data easier to colle
 # How it Works
 
 <p align="center">
-  <iframe width="560" height="315" src="https://www.youtube.com/embed/L7kpcUOq6Nk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  [![IoT Flow Meter Overview](https://img.youtube.com/vi/L7kpcUOq6Nk/0.jpg)](https://www.youtube.com/watch?v=L7kpcUOq6Nk)
 </p>
+
+
+<p align="center">
+  <a href="https://www.youtube.com/watch?v=L7kpcUOq6Nk"><img width="600" src="https://img.youtube.com/vi/L7kpcUOq6Nk/0.jpg"></a>
+</p>
+
 
 The IoT flow meter consists of a sensor and electronics, connected to a PVC pipe support structure, that can be deployed to a river to collect flow rate data.
 
