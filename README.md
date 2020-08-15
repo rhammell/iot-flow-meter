@@ -51,12 +51,6 @@ The IoT flow meter consists of a sensor and electronics, connected to a PVC pipe
 A flow meter sensor is connected to the structure's vertical pipe at an adjustable height where it is held submerged underwater. The electronics are contained in an upper housing at the top of the structure outside of the water.
 
 <p align="center">
-    <img width="400" src="img/how_it_works_1.jpg" alt="IoT flow meter structure and components">
-    <img width="400" src="img/how_it_works_2.jpg" alt="Flow meter sensor connected to structure">
-    <img width="400" src="img/how_it_works_3.jpg" alt="Electronics upper housing">
-</p>
-
-<p align="center">
   <img width="600" src="img/how_it_works_1.jpg">
   <br>
   <span><i>IoT flow meter structure and components</i></span>
@@ -67,7 +61,7 @@ A flow meter sensor is connected to the structure's vertical pipe at an adjustab
   <span><i>Flow meter sensor connected to structure</i></span>
 </p>
 <p align="center">
-  <img width="600" src="Electronics upper housing.jpg">
+  <img width="600" src="img/how_it_works_3.jpg">
   <br>
   <span><i>IoT flow meter deployed to a local river</i></span>
 </p>
@@ -77,9 +71,19 @@ The system utilizes a YF-S201 liquid flow meter sensor, which contains a magneti
 As more water enters the sensor the wheel spins faster, and this rate of spin (Hz) can be used to calculate how many liters of water flow through the sensor per minute (L/min), called the flow rate.
 
 <p align="center">
-    <img width="400" src="img/how_it_works_4.jpg" alt="YF-S201 liquid flow meter sensor">
-    <img width="400" src="img/how_it_works_5.jpg" alt="Magnetic pinwheel housed within the sensor">
-    <img width="400" src="img/how_it_works_6.jpg" alt="3D printed bracket and funnel attached to sensor">
+  <img width="600" src="img/how_it_works_4.jpg">
+  <br>
+  <span><i>YF-S201 liquid flow meter sensor</i></span>
+</p>
+<p align="center">
+  <img width="600" src="img/how_it_works_5.jpg">
+  <br>
+  <span><i>Magnetic pinwheel housed within the sensor</i></span>
+</p>
+<p align="center">
+  <img width="600" src="img/how_it_works_6.jpg">
+  <br>
+  <span><i>3D printed bracket and funnel attached to sensor</i></span>
 </p>
 
 Note: This flow rate only tells the liters of water passing through the sensor itself, not the entire river. The sensor's flow rate is strongly correlated to the river's actual flow rate, but is not measuring it directly. The IoT flow meter provides only the sensor's flow rate and uses this as an approximation for the entire river.
@@ -89,8 +93,14 @@ A 3D printed bracket is used to connect the sensor to the PVC pipe structure and
 The electronics of the system include a Raspberry Pi, 3G USB modem with a Soracom Global SIM, and external battery, which are contained in a 3D printed housing. The sensor is connected to the Pi by water-sealed jumper wires that run the length of the vertical pipe into the housing.
 
 <p align="center">
-    <img width="400" src="img/how_it_works_7.jpg" alt="Raspberry Pi, 3G USB modem with Soracom Global SIM, and external battery">
-    <img width="400" src="img/how_it_works_8.jpg" alt="Electronics in 3D printed housing">
+  <img width="600" src="img/how_it_works_7.jpg">
+  <br>
+  <span><i>Raspberry Pi, 3G USB modem with Soracom Global SIM, and external battery</i></span>
+</p>
+<p align="center">
+  <img width="600" src="img/how_it_works_7.jpg">
+  <br>
+  <span><i>Electronics in 3D printed housing</i></span>
 </p>
 
 The Pi runs a Python script where ever minute a flow rate measurement is collected from the sensor and, using the cellular connectivity provided by the modem and SIM card, pushed to the cloud.
@@ -98,16 +108,30 @@ The Pi runs a Python script where ever minute a flow rate measurement is collect
 The script makes an HTTP POST request to Soracom's Unified Endpoint which forwards the data along to two services: Soracom Harvest and Soracom Funnel.
 
 <p align="center">
-    <img width="600" src="img/how_it_works_9.jpg" alt="Overview of information flow">
+  <img width="600" src="img/how_it_works_9.jpg">
+  <br>
+  <span><i>Overview of information flow</i></span>
 </p>
 
 Soracom Harvest allows for easy real-time visualization of the incoming data. The console displays a live graph showing updated data values as they stream in. Users can monitor how the data changes over a selected window of time.
 
 <p align="center">
-    <img width="600" src="img/how_it_works_10.jpg" alt="Soracom Harvest console">
-    <img width="600" src="img/how_it_works_11.jpg" alt="AWS Cloudwatch console">
-    <img width="600" src="img/how_it_works_12.jpg" alt="Email alarm notification">
+  <img width="600" src="img/how_it_works_10.jpg">
+  <br>
+  <span><i>Soracom Harvest console</i></span>
 </p>
+<p align="center">
+  <img width="600" src="img/how_it_works_11.jpg">
+  <br>
+  <span><i>AWS Cloudwatch console</i></span>
+</p>
+<p align="center">
+  <img width="600" src="img/how_it_works_12.jpg">
+  <br>
+  <span><i>Email alarm notification</i></span>
+</p>
+
+
 
 Soracom Funnel takes the data and forwards it further on it by sending it to an AWS IoT endpoint, where an AWS IoT rule is then used to push the data to AWS CloudWatch.
 
