@@ -98,7 +98,7 @@ The electronics of the system include a Raspberry Pi, 3G USB modem with a Soraco
   <span><i>Raspberry Pi, 3G USB modem with Soracom Global SIM, and external battery</i></span>
 </p>
 <p align="center">
-  <img width="600" src="img/how_it_works_7.jpg">
+  <img width="600" src="img/how_it_works_8.jpg">
   <br>
   <span><i>Electronics in 3D printed housing</i></span>
 </p>
@@ -153,5 +153,142 @@ The system relies on having a reliable cellular network as well. Currently, if a
 
 Security: The IoT flow meter is designed to be left unattended, which puts its physical security at risk. Currently, there is no way to determine what happens to the system if it goes offline or is missing, but a future version may include a GPS module that includes the system's current coordinates with each data push. This would help track the location of the system at any time.
 
+# Build Instructions
 
+Below are instructions on how to prototype, build, and receive notifications from the IoT flow meter.
+
+Begin this project by first building a prototype circuit to test the liquid flow meter's functionality, enabling internet connectivity, and pushing measurements to the cloud. Next build the pipe structure and attach the components so its ready to be deployed. Finally, setup AWS CloudWatch and subscribe to email alerts when a critical flow rate occurs.
+
+These instructions assume you have access to the Rasberry Pi's terminal, either through SSH or a keyboard/mouse/monitor setup. The Pi must also have an internet connection either through WiFi or ethernet for the initial setup.
+
+# Prototype Circuit
+
+## Step 1: Setup the Test Circuit
+
+Using the male-to-female jumper wires, make the following connections from the YF-S201 liquid flow meter's wires to the Raspberry Pi GPIO Pins:
+
+- Red (DC Power) to Pin 1 (3.3V)
+- Black (Ground) to Pin 6 (Ground)
+- Yellow (Output) to Pin 7 (GPIO4)
+
+<p align="center">
+  <img width="600" src="img/build_instructions_1.jpg">
+  <br>
+  <span><i>Schematic of circut setup showing pin connections</i></span>
+</p>
+<p align="center">
+  <img width="600" src="img/build_instructions_2.jpg">
+  <br>
+  <span><i>Circuit setup</i></span>
+</p>
+
+## Setp 2: Test Sensor Measurements
+
+A Python script can be ran to take readings from the sensor that is now connected. Open the Raspberry Pi terminal and enter the following commands to create and navigate to a flowmeter directory on the Pi's desktop where the script will be stored:
+
+    $ cd /home/pi/Desktop
+    $ mkdir flowmeter
+    $ cd flowmeter
+
+Using Python's IDLE, or another text editor, copy the following Python code and save it as flowmeter.py in the folder that was just created:
+
+    import json
+    import time
+    from datetime import datetime
+    import RPi.GPIO as GPIO
+      
+    class FlowMeter():
+        ''' Class representing the flow meter sensor which handles input pulses
+            and calculates current flow rate (L/min) measurement
+        '''
+        
+        def __init__(self):
+            self.flow_rate = 0.0
+            self.last_time = datetime.now()
+      
+        def pulseCallback(self, p):
+            ''' Callback that is executed with each pulse 
+                received from the sensor 
+            '''
+           
+            # Calculate the time difference since last pulse recieved
+            current_time = datetime.now()
+            diff = (current_time - self.last_time).total_seconds()
+           
+            # Calculate current flow rate
+            hertz = 1. / diff
+            self.flow_rate = hertz / 7.5
+           
+            # Reset time of last pulse
+            self.last_time = current_time
+        
+        def getFlowRate(self):
+            ''' Return the current flow rate measurement. 
+                If a pulse has not been received in more than one second, 
+                assume that flow has stopped and set flow rate to 0.0
+            '''
+           
+            if (datetime.now() - self.last_time).total_seconds() > 1:
+                self.flow_rate = 0.0
+            
+            return self.flow_rate
+      
+    def main():
+        ''' Main function for repeatedly collecting flow rate measurements
+            and sending them to the SORACOM API
+        '''
+       
+        # Configure GPIO pins
+        INPUT_PIN = 7
+        GPIO.setmode(GPIO.BOARD)
+        GPIO.setup(INPUT_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+       
+        # Init FlowMeter instance and pulse callback
+        flow_meter = FlowMeter()
+        GPIO.add_event_detect(INPUT_PIN,
+                              GPIO.RISING,
+                              callback=flow_meter.pulseCallback,
+                              bouncetime=20)
+       
+        # Begin infinite loop
+        while True:
+      
+            # Get current timestamp and flow meter reading
+            timestamp = str(datetime.now())
+            flow_rate = flow_meter.getFlowRate()
+            print('Timestamp: %s' % timestamp)
+            print('Flow rate: %f' % flow_rate)
+           
+            # Delay
+            time.sleep(5)
+      
+    if __name__ == '__main__':
+       main()
+
+This script defines a FlowMeter() object class that is used to track pulses received from the sensor as its pinwheel spins and calculate the current flow rate.
+
+Each new pulse triggers the pulseCallback() method, where the rate of pulses per second (Hz) is divided by a constant to calculate the flow rate in liters per minute (L/min). This conversion is defined in the sensor's datasheet. The getFlowRate() method returns the current flow rate.
+
+The main() function is called when the script is launched and defines the GPIO pins used by the sensor, and initiates an instance of the FlowMeter() class.
+
+An infinite loop is entered where on each pass a flow rate measurement and its timestamp collected and printed out to the console. The time.sleep(5) statement, which controls the delay between loops, is set to 5 seconds. The loop will run continuously until canceled by the user.
+
+Before deploying the final IoT flow meter to a river, edit this script to adjust this sleep time to the frequency you want to collect river measurements. A value of 60 will take measurements at one minute intervals.
+
+Launch the Python script with the following command:
+
+    $ python3 flowmeter.py
+
+Flow rate measurements and timestamps are printed out to the console every 5 seconds:
+
+    Timestamp: 2019-05-20 22:00:41.267727
+    Flow rate: 0.000000
+    Timestamp: 2019-05-20 22:00:46.278729
+    Flow rate: 0.000000
+    Timestamp: 2019-05-20 22:00:51.283864
+    Flow rate: 0.000000
+
+The flow rate should be zero while the sensor's pinwheel is stopped. Try blowing into the sensor to spin the wheel and watch how the flow rate value changes.
+
+Press Ctrl+C to stop the script.
 
