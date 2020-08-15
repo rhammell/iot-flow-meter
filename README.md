@@ -56,6 +56,22 @@ A flow meter sensor is connected to the structure's vertical pipe at an adjustab
     <img width="400" src="img/how_it_works_3.jpg" alt="Electronics upper housing">
 </p>
 
+<p align="center">
+  <img width="600" src="img/how_it_works_1.jpg">
+  <br>
+  <span><i>IoT flow meter structure and components</i></span>
+</p>
+<p align="center">
+  <img width="600" src="img/how_it_works_2.jpg">
+  <br>
+  <span><i>Flow meter sensor connected to structure</i></span>
+</p>
+<p align="center">
+  <img width="600" src="Electronics upper housing.jpg">
+  <br>
+  <span><i>IoT flow meter deployed to a local river</i></span>
+</p>
+
 The system utilizes a YF-S201 liquid flow meter sensor, which contains a magnetic pinwheel that is spun by incoming water.
 
 As more water enters the sensor the wheel spins faster, and this rate of spin (Hz) can be used to calculate how many liters of water flow through the sensor per minute (L/min), called the flow rate.
@@ -112,11 +128,6 @@ Reliability: Consistent and accurate measurements that reflect the actual flow r
 The system relies on having a reliable cellular network as well. Currently, if an attempted request to Soracom fails due to a network timeout, that data is lost. Further updates to the tool would include backing up measurements so they could be saved and pushed to the cloud when the connection is reestablished.
 
 Security: The IoT flow meter is designed to be left unattended, which puts its physical security at risk. Currently, there is no way to determine what happens to the system if it goes offline or is missing, but a future version may include a GPS module that includes the system's current coordinates with each data push. This would help track the location of the system at any time.
-
-<p>
-  <figure><img src="img/how_it_works_10.jpg" /><figcaption>Caption goes here and here</figcaption></figure>
-  <figure><img src="img/how_it_works_11.jpg" /><figcaption>caption goes here and here</figcaption></figure>
-</p>
 
 
 
