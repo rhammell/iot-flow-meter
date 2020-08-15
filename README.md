@@ -343,5 +343,42 @@ A complete version of `flowmeter.py` is attached to this tutorial. Run the scrip
 
 With the Harvest console open you should begin to see data streaming in. The flow rate data is plotted on a graph that gets updated each time a new value is received.
 
+<p align="center">
+  <img width="600" src="img/build_instructions_3.gif">
+  <br>
+  <span><i>Soracom Harvest console recieving flow rate data</i></span>
+</p>
+
+## Step 5: Run Script at Bootup
+
+The Raspberry Pi will disconnected from a monitor, mouse, and keyboard and powered by an external battery in final setup of this project. Therefore, its necessary for the Python script to be launched automatically without user interaction.
+
+Configure the Pi to run the script when it boots up by editing the `/etc/rc.local` file. Use the following command to edit this file:
+
+    $ sudo nano /etc/rc.local
+
+Add the following line above the last line in the file, `exit 0`:
+
+    python3 /home/pi/Desktop/flowmeter/flowmeter.py &
+
+Press `Ctrl+X`, `Y`, and `Enter` to save and close the file.
+
+The full path to `flowmeter.py` is required because the Pi won't be in the `flowmeter` directory when it boots up. Including the `&` at the end of the line ensures that script is run as its own process, and won't block other bootup processes while it runs.
+
+Disconnect the Pi from any monitor, keyboard, and mouse and plug the external battery pack into the Pi's micro USB port. It may take a few moments for the Pi to start up and the USB Modem to connect. Once connected, open the Soracom Harvest console to view incoming data.
+
+The video below demonstrates a working prototype of the flow meter.
+
+<p align="center">
+  <a target="_blank" href="https://www.youtube.com/watch?v=Je6O7ZBDeaY">
+    <img width="600" src="https://img.youtube.com/vi/Je6O7ZBDeaY/0.jpg">
+  </a>
+  <br>
+  <span><i>IoT Flow Meter Prototype</i></span>
+</p>
+
+# Assemble Structure
+
+
 
 
