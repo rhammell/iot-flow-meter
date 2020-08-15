@@ -292,5 +292,56 @@ Flow rate measurements and timestamps are printed out to the console every 5 sec
 
 The flow rate should be zero while the sensor's pinwheel is stopped. Try blowing into the sensor to spin the wheel and watch how the flow rate value changes.
 
-Press Ctrl+C to stop the script.
+Press `Ctrl+C` to stop the script.
+
+## Step 3: Enable Cellular Connectivity
+
+With the sensor working, the next step is to send its readings to the cloud. This is enabled by a 3G USB modem with a Soracom Global SIM card that is plugged into the Pi and Soracom's Harvest service.
+
+Soracom's own [IoT stater kit tutorial](https://developers.soracom.io/en/start/iot-starter-kit/raspberry-pi/) provides good instructions on getting setup with a Soracom account, configuring the USB modem, and enabling the Harvest service. Complete the following sections from their tutorial:
+
+- Setup your Soracom Account
+- Setup the 3G USB Modem
+- Enable Soracom Harvest
+
+## Step 4: Send data to Soracom Harvest
+
+The `flowmeter.py` script can now be updated with additional code to send measurements to Soracom Harvest.
+
+Begin by installing the `requests` Python package, which allows HTTP requests to be made from Python, with the following command:
+
+    $ sudo apt-get install python-requests
+
+Open `flowmeter.py` and add the following line to list of import statements:
+
+    import requests
+
+Add the following code inside the `main()` function above the `time.sleep(5)` statement:
+
+    # Build payload
+    payload = {
+        'timestamp': timestamp,
+        'flow_rate': flow_rate
+    }
+      
+    # Publish to Soracom API
+    headers = {'Content-Type': 'application/json'}
+    try:
+        print('Publishing to SORACOM API...')
+        r = requests.post('http://unified.soracom.io',
+                           data=json.dumps(payload),
+                           headers=headers,
+                           timeout=5)
+    except:
+        print('Error: Connection timeout.')
+
+This additional code wraps up the timestamp and flow rate values into a JSON string, and uses a POST request to send it to the Soracom Unified Endpoint.
+
+A complete version of `flowmeter.py` is attached to this tutorial. Run the script again with the following command:
+
+    $ python3 flowmeter.py
+
+With the Harvest console open you should begin to see data streaming in. The flow rate data is plotted on a graph that gets updated each time a new value is received.
+
+
 
