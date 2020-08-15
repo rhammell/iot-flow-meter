@@ -18,10 +18,7 @@ Measurement data is pushed to the cloud through the system's cellular network co
 # Background
 
 <p align="center">
-  <video controls width="250">
-    <source src="img/background.mp4"type="video/mp4">
-      Sorry, your browser doesn't support embedded videos.
-  </video>
+  <img width="600" src="img/background.gif">
 </p>
 
 The flow rate of a river measures the volume of water that passes through a specific point over time. This rate rises and falls as water from rainfall flows in and out of the river system.
@@ -38,6 +35,16 @@ Currently, measuring the flow rate of remote river areas is a very hands-on proc
 Because of the effort required to collect a measurement, it is only done periodically for certain rivers. Without continuous monitoring many of the insights that flow rate provides are lost.
 
 This project aims to solve this problem by making flow rate data easier to collect and more readily available to users who need it.
+
+# How it Works
+
+<p align="center">
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/L7kpcUOq6Nk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</p>
+
+The IoT flow meter consists of a sensor and electronics, connected to a PVC pipe support structure, that can be deployed to a river to collect flow rate data.
+
+A flow meter sensor is connected to the structure's vertical pipe at an adjustable height where it is held submerged underwater. The electronics are contained in an upper housing at the top of the structure outside of the water.
 
 
 
