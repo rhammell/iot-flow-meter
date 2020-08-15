@@ -43,6 +43,9 @@ This project aims to solve this problem by making flow rate data easier to colle
 </p>
 
 
+
+
+
 <p align="center">
   <a href="https://www.youtube.com/watch?v=L7kpcUOq6Nk"><img width="600" src="https://img.youtube.com/vi/L7kpcUOq6Nk/0.jpg"></a>
 </p>
@@ -52,6 +55,7 @@ The IoT flow meter consists of a sensor and electronics, connected to a PVC pipe
 
 A flow meter sensor is connected to the structure's vertical pipe at an adjustable height where it is held submerged underwater. The electronics are contained in an upper housing at the top of the structure outside of the water.
 
+[![IoT Flow Meter Overview](https://img.youtube.com/vi/L7kpcUOq6Nk/0.jpg)](https://www.youtube.com/watch?v=L7kpcUOq6Nk)
 
 
 
