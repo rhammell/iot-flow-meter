@@ -1,7 +1,7 @@
 # iot-flow-meter
 This repository contains the project files used to build an IoT enabled flow meter. This project was submitted to Hackster.io as part of the [Cellular IoT Challenge](https://www.hackster.io/contests/soracomcontest#category-331), where it was selected as the grand prize winner. 
 
-See the original Hackster.io [project page](https://www.hackster.io/rhammell/river-monitoring-with-an-iot-flow-meter-9af852) for the full build tutorial.
+Read the original Hackster.io [project page](https://www.hackster.io/rhammell/river-monitoring-with-an-iot-flow-meter-9af852) for a full build tutorial.
 
 # Overview
 
